@@ -41,9 +41,9 @@ TransitX is an integrated travel assistant system that allows users to:
 ```
 transitx/
 ├── app.py                   # Streamlit app for sentiment analysis
-├── sentiment_analysis.py    # Model training script (optional)
-├── rf_model.pkl             # Trained Random Forest model (to be added)
-├── vectorizer.pkl           # Trained TF-IDF vectorizer (to be added)
+├── sentiment_analysis.py    # Model training script 
+├── rf_model.pkl             # Trained Random Forest model 
+├── vectorizer.pkl           # Trained TF-IDF vectorizer 
 ├── crowd_analyzer.py        # Python Flask + OpenCV crowd detector
 ├── server.js                # Express backend + MySQL + Python integration
 
@@ -52,8 +52,8 @@ transitx/
 ├── register.html
 ├── main.html
 ├── contact.html
-├── details.html             # Trains display with density color
-├── details_buses.html       # Buses display with density color
+├── details.html             
+├── details_buses.html       
 
 # Public assets (to be added)
 ├── images/
