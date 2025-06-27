@@ -55,7 +55,7 @@ transitx/
 ├── details.html             
 ├── details_buses.html       
 
-# Public assets (to be added)
+# Public assets 
 ├── images/
 │   ├── icon.jpeg
 │   ├── image.jpeg
