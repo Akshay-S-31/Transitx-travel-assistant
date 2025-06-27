@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransitX Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            width: 900px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .left-panel {
+            width: 40%;
+            background: #1e1e1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 40px;
+            color: white;
+        }
+
+        .left-panel img {
+            width: 120px;
+            margin-bottom: 20px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .left-panel h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .left-panel p {
+            font-size: 14px;
+            color: #ccc;
+            text-align: center;
+        }
+
+        .right-panel {
+            width: 60%;
+            background: #fff;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            padding-left: 40px;
+            font-size: 16px;
+            background: #f9f9f9;
+        }
+
+        .input-box i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .checkbox input {
+            margin-right: 10px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4);
+        }
+
+        .signin {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .signin a {
+            color: #ff7e5f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signin a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <img src="transitx_logo.jpeg" alt="TransitX Logo">
+            <h1>Welcome to TransitX</h1>
+            <p>Your trusted partner for all transit solutions.</p>
+        </div>
+        <div class="right-panel">
+            <div class="form-container">
+                <h2>Create Your Account</h2>
+                <form id="registerForm">
+                    <div class="input-box">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" placeholder="User Name" required>
+                    </div>
+                    <div class="input-box">
+                        <i class="fas fa-phone"></i>
+                        <input type="text" id="mobile" placeholder="Mobile Number" required>
+                    </div>
+                    <div class="input-box">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Email Address" required>
+                    </div>
+                    <div class="input-box">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+                    <div class="input-box">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="terms" required> I agree to the <a href="#">Terms and Conditions</a>
+                    </div>
+                    <button class="btn" type="submit">Sign Up</button>
+                </form>
+                <div class="signin">Already have an account? <a href="login.html">Sign in →</a></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const userData = {
+                username: document.getElementById("username").value,
+                mobile: document.getElementById("mobile").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value
+            };
+
+            const response = await fetch("http://localhost:5510/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(userData),
+            });
+
+            const data = await response.json();
+            alert(data.message);
+        });
+    </script>
+</body>
+
+</html>

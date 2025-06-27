@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransitX Travel Booking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+
+        .sidebar {
+            width: 15%;
+            background: #333;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            height: 100vh;
+        }
+
+        .sidebar img {
+            width: 50px;
+            margin: 20px;
+        }
+
+        .main-content {
+            width: 85%;
+            background: #fff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+        }
+
+        select, input {
+            width: 200px;
+            padding: 12px;
+            margin: 10px;
+            border-radius: 30px;
+            border: none;
+            background: #f0f0f0;
+        }
+
+        .search-button {
+            background: #ff7e5f;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: #ff6a3d;
+            transform: scale(1.05);
+        }
+
+        .packages {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .package {
+            width: 300px;
+        }
+
+        .top-links {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            padding-right: 20px;
+        }
+
+        .logo {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="busimg.png" alt="Bus">
+        <img src="trainimg.jpg" alt="Train">
+    </div>
+    <div class="main-content">
+        <div class="top-links">
+            <a href="#">Feedback</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="#">Notifications</a>
+        </div>
+        <h2>Book Your Trip</h2>
+        <select id="from">
+            <option value="">FROM</option>
+            <option>THIRUVANANTHAPURAM</option>
+            <option>KOLLAM</option>
+            <option>KOCHI</option>
+            <option>KOTTAYAM</option>
+            <option>ALAPPUZHA</option>
+            <option>ERNAKULAM</option>
+            <option>GURUVAYUR</option>
+            <option>PATHANAMTHITTA</option>
+            <option>KOZHIKODE</option>
+            <option>THRISSUR</option>
+            <option>MALAPPURAM</option>
+        </select>
+        <select id="to">
+            <option value="">TO</option>
+            <option>THIRUVANANTHAPURAM</option>
+            <option>KOLLAM</option>
+            <option>KOCHI</option>
+            <option>KOTTAYAM</option>
+            <option>ALAPPUZHA</option>
+            <option>ERNAKULAM</option>
+            <option>GURUVAYUR</option>
+            <option>PATHANAMTHITTA</option>
+            <option>KOZHIKODE</option>
+            <option>THRISSUR</option>
+            <option>MALAPPURAM</option>
+        </select>
+        <input type="date" id="date">
+        <button class="search-button" onclick="searchTrains()">Search Trains</button>
+        <button class="search-button" onclick="searchBuses()">Search Buses</button>
+
+        <script>
+            function searchTrains() {
+                let from = document.getElementById("from").value;
+                let to = document.getElementById("to").value;
+                if (from === "" || to === "") {
+                    alert("Please select both FROM and TO stations.");
+                    return;
+                }
+                window.location.href = `details.html?from=${from}&to=${to}`;
+            }
+            function searchBuses() {
+                let from = document.getElementById("from").value;
+                let to = document.getElementById("to").value;
+                if (from === "" || to === "") {
+                    alert("Please select both FROM and TO stations.");
+                    return;
+                }
+                window.location.href = `details_buses.html?from=${from}&to=${to}`;
+            }
+        </script>
+
+
+        <div class="packages">
+            <div class="package">
+                <img src="t1.jpeg" alt="South India Packages" width="300">
+            </div>
+            <div class="package">
+                <img src="t2.jpeg" alt="North-East India Packages" width="300">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            text-align: center;
+        }
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+        th {
+            background: #ff9800;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Bus Details</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Bus Number</th>
+                <th>Bus Name</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Duration</th>
+                <th>Crowd Density</th>
+            </tr>
+        </thead>
+        <tbody id="busTable">
+            <tr><td colspan="6">Loading...</td></tr>
+        </tbody>
+    </table>
+
+    <script>
+        let currentDensity = 0;
+
+        async function fetchCrowdDensity() {
+            try {
+                const response = await fetch('http://localhost:5500/density');
+                const data = await response.json();
+                currentDensity = data.density;
+            } catch (error) {
+                console.error("Error fetching crowd density:", error);
+                currentDensity = "N/A";
+            }
+        }
+
+        async function fetchBuses() {
+            const params = new URLSearchParams(window.location.search);
+            const from = params.get("from");
+            const to = params.get("to");
+
+            document.title = `Buses from ${from} to ${to}`;
+
+            try {
+                await fetchCrowdDensity();  // Fetch crowd density first
+
+                const response = await fetch(`http://localhost:5510/buses?from=${from}&to=${to}`);
+                const buses = await response.json();
+
+                const busTable = document.getElementById("busTable");
+                busTable.innerHTML = "";
+
+                if (buses.length === 0) {
+                    busTable.innerHTML = "<tr><td colspan='6'>No buses available</td></tr>";
+                    return;
+                }
+
+                buses.forEach(bus => {
+                    let rowColor = "green";  // default
+
+                    if (currentDensity === "N/A") {
+                        rowColor = "#ccc";
+                    } else if (currentDensity > 70) {
+                        rowColor = "red";
+                    } else if (currentDensity > 40) {
+                        rowColor = "yellow";
+                    }
+
+                    const row = `<tr style="background-color: ${rowColor};">
+                        <td>${bus.bus_number}</td>
+                        <td>${bus.bus_name}</td>
+                        <td>${bus.departure_time}</td>
+                        <td>${bus.arrival_time}</td>
+                        <td>${bus.duration}</td>
+                        <td>${currentDensity}</td>
+                    </tr>`;
+
+                    busTable.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Error fetching bus details:", error);
+                document.getElementById("busTable").innerHTML = "<tr><td colspan='6'>Failed to load buses</td></tr>";
+            }
+        }
+
+        // Initial call
+        fetchBuses();
+
+        // Optional: Refresh every 10 seconds
+        setInterval(fetchBuses, 10000);
+    </script>
+</body>
+</html>

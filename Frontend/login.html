@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransitX Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+
+        .container {
+            display: flex;
+            width: 1000px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .left {
+            background: #f0f0f0;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .left img {
+            max-width: 90%;
+            /* Allow image to fill more of the container */
+            height: auto;
+            /* Maintain aspect ratio */
+            object-fit: contain;
+            /* Ensure the entire image is visible */
+            margin-bottom: 20px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .left h1 {
+            font-size: 36px;
+            color: #555;
+        }
+
+        .right {
+            background: #333;
+            color: white;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        .right h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            width: 100%;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            background: #444;
+            color: white;
+            font-size: 16px;
+            padding-left: 40px;
+        }
+
+        .input-box i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        .forgot {
+            text-align: right;
+            font-size: 12px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #ff7e5f;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #ff6a3d;
+            transform: scale(1.05);
+        }
+
+        .register {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .register a {
+            color: #ff7e5f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <img src="icon.jpeg" alt="Bus Icon">
+        </div>
+        <div class="right">
+            <h2>Welcome Back!</h2>
+            <div class="input-box">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Username">
+            </div>
+            <div class="input-box">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password">
+            </div>
+            <div class="forgot">Forgot Password?</div>
+            <button class="btn">Sign in</button>
+            <div class="register">Don't have an account? <a href="register.html">Register now</a></div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector(".btn").addEventListener("click", async function (event) {
+            event.preventDefault();
+
+            const userData = {
+                username: document.querySelector('input[type="text"]').value,
+                password: document.querySelector('input[type="password"]').value
+            };
+
+            try {
+                const response = await fetch("http://localhost:5510/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(userData),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store the token
+                    localStorage.setItem('token', data.token);
+                    alert("Login successful!");
+                    // Redirect to dashboard or home page
+                    window.location.href = "main.html";
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                alert("Error connecting to server");
+            }
+        });
+    </script>
+</body>
+
+</html>
