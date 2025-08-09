@@ -17,11 +17,11 @@ nltk.download('stopwords', quiet=True)
 nltk.download('wordnet', quiet=True)
 
 # Load the trained RandomForest model
-with open('/Users/abhinava/Downloads/rf_model.pkl', 'rb') as f:
+with open('/Users/akshay/Downloads/rf_model.pkl', 'rb') as f:
     rf_model = pickle.load(f)
 
 # Load the TF-IDF vectorizer (replace 'vectorizer.pkl' with your saved vectorizer file)
-with open('/Users/abhinava/Downloads/vectorizer.pkl', 'rb') as f:
+with open('/Users/akshay/Downloads/vectorizer.pkl', 'rb') as f:
     vectorizer = pickle.load(f)
 
 # Initialize NLTK's WordNet lemmatizer
