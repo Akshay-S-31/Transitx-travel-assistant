@@ -1,0 +1,15 @@
+{
+  "name": "transitx-platform",
+  "version": "1.0.0",
+  "description": "AI-powered travel booking system with sentiment and crowd analysis",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mysql2": "^3.2.0"
+  }
+}

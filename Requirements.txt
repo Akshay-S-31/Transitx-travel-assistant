@@ -1,0 +1,8 @@
+streamlit
+flask
+flask-cors
+opencv-python
+nltk
+pandas
+scikit-learn
+joblib
